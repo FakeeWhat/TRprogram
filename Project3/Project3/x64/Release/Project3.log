@@ -1,0 +1,171 @@
+﻿  MyForm.cpp
+C:\Games\TRprogram\Project3\MyForm.h(91,11): error C2653: ZBobb: не является именем класса или пространства имен
+  (компиляция исходного файла "MyForm.cpp")
+  
+C:\Games\TRprogram\Project3\MyForm.h(91,35): error C2143: синтаксическая ошибка: отсутствие ";" перед "^"
+  (компиляция исходного файла "MyForm.cpp")
+  
+C:\Games\TRprogram\Project3\MyForm.h(91,35): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
+  (компиляция исходного файла "MyForm.cpp")
+  
+C:\Games\TRprogram\Project3\MyForm.h(91,46): error C2238: непредвиденные лексемы перед ";"
+  (компиляция исходного файла "MyForm.cpp")
+  
+C:\Games\TRprogram\Project3\MyForm.h(92,11): error C2653: ZBobb: не является именем класса или пространства имен
+  (компиляция исходного файла "MyForm.cpp")
+  
+C:\Games\TRprogram\Project3\MyForm.h(92,35): error C2143: синтаксическая ошибка: отсутствие ";" перед "^"
+  (компиляция исходного файла "MyForm.cpp")
+  
+C:\Games\TRprogram\Project3\MyForm.h(92,35): error C4430: отсутствует спецификатор типа - предполагается int. Примечание. C++ не поддерживает int по умолчанию
+  (компиляция исходного файла "MyForm.cpp")
+  
+C:\Games\TRprogram\Project3\MyForm.h(92,46): error C2238: непредвиденные лексемы перед ";"
+  (компиляция исходного файла "MyForm.cpp")
+  
+C:\Games\TRprogram\Project3\MyForm.h(123,19): error C2039: "text_user": не является членом "Project3::MyForm".
+  (компиляция исходного файла "MyForm.cpp")
+  C:\Games\TRprogram\Project3\MyForm.h(28,19):
+   см. объявление "Project3::MyForm"
+  
+C:\Games\TRprogram\Project3\MyForm.h(123,38): error C2653: ZBobb: не является именем класса или пространства имен
+  (компиляция исходного файла "MyForm.cpp")
+  
+C:\Games\TRprogram\Project3\MyForm.h(123,45): error C2061: синтаксическая ошибка: идентификатор "AlphaBlendTextBox"
+  (компиляция исходного файла "MyForm.cpp")
+  
+C:\Games\TRprogram\Project3\MyForm.h(124,19): error C2039: "text_pass": не является членом "Project3::MyForm".
+  (компиляция исходного файла "MyForm.cpp")
+  C:\Games\TRprogram\Project3\MyForm.h(28,19):
+   см. объявление "Project3::MyForm"
+  
+C:\Games\TRprogram\Project3\MyForm.h(124,38): error C2653: ZBobb: не является именем класса или пространства имен
+  (компиляция исходного файла "MyForm.cpp")
+  
+C:\Games\TRprogram\Project3\MyForm.h(124,45): error C2061: синтаксическая ошибка: идентификатор "AlphaBlendTextBox"
+  (компиляция исходного файла "MyForm.cpp")
+  
+C:\Games\TRprogram\Project3\MyForm.h(227,19): error C2039: "text_user": не является членом "Project3::MyForm".
+  (компиляция исходного файла "MyForm.cpp")
+  C:\Games\TRprogram\Project3\MyForm.h(28,19):
+   см. объявление "Project3::MyForm"
+  
+C:\Games\TRprogram\Project3\MyForm.h(228,19): error C2039: "text_user": не является членом "Project3::MyForm".
+  (компиляция исходного файла "MyForm.cpp")
+  C:\Games\TRprogram\Project3\MyForm.h(28,19):
+   см. объявление "Project3::MyForm"
+  
+C:\Games\TRprogram\Project3\MyForm.h(230,19): error C2039: "text_user": не является членом "Project3::MyForm".
+  (компиляция исходного файла "MyForm.cpp")
+  C:\Games\TRprogram\Project3\MyForm.h(28,19):
+   см. объявление "Project3::MyForm"
+  
+C:\Games\TRprogram\Project3\MyForm.h(231,19): error C2039: "text_user": не является членом "Project3::MyForm".
+  (компиляция исходного файла "MyForm.cpp")
+  C:\Games\TRprogram\Project3\MyForm.h(28,19):
+   см. объявление "Project3::MyForm"
+  
+C:\Games\TRprogram\Project3\MyForm.h(233,19): error C2039: "text_user": не является членом "Project3::MyForm".
+  (компиляция исходного файла "MyForm.cpp")
+  C:\Games\TRprogram\Project3\MyForm.h(28,19):
+   см. объявление "Project3::MyForm"
+  
+C:\Games\TRprogram\Project3\MyForm.h(234,19): error C2039: "text_user": не является членом "Project3::MyForm".
+  (компиляция исходного файла "MyForm.cpp")
+  C:\Games\TRprogram\Project3\MyForm.h(28,19):
+   см. объявление "Project3::MyForm"
+  
+C:\Games\TRprogram\Project3\MyForm.h(235,19): error C2039: "text_user": не является членом "Project3::MyForm".
+  (компиляция исходного файла "MyForm.cpp")
+  C:\Games\TRprogram\Project3\MyForm.h(28,19):
+   см. объявление "Project3::MyForm"
+  
+C:\Games\TRprogram\Project3\MyForm.h(236,19): error C2039: "text_user": не является членом "Project3::MyForm".
+  (компиляция исходного файла "MyForm.cpp")
+  C:\Games\TRprogram\Project3\MyForm.h(28,19):
+   см. объявление "Project3::MyForm"
+  
+C:\Games\TRprogram\Project3\MyForm.h(237,19): error C2039: "text_user": не является членом "Project3::MyForm".
+  (компиляция исходного файла "MyForm.cpp")
+  C:\Games\TRprogram\Project3\MyForm.h(28,19):
+   см. объявление "Project3::MyForm"
+  
+C:\Games\TRprogram\Project3\MyForm.h(241,19): error C2039: "text_pass": не является членом "Project3::MyForm".
+  (компиляция исходного файла "MyForm.cpp")
+  C:\Games\TRprogram\Project3\MyForm.h(28,19):
+   см. объявление "Project3::MyForm"
+  
+C:\Games\TRprogram\Project3\MyForm.h(242,19): error C2039: "text_pass": не является членом "Project3::MyForm".
+  (компиляция исходного файла "MyForm.cpp")
+  C:\Games\TRprogram\Project3\MyForm.h(28,19):
+   см. объявление "Project3::MyForm"
+  
+C:\Games\TRprogram\Project3\MyForm.h(244,19): error C2039: "text_pass": не является членом "Project3::MyForm".
+  (компиляция исходного файла "MyForm.cpp")
+  C:\Games\TRprogram\Project3\MyForm.h(28,19):
+   см. объявление "Project3::MyForm"
+  
+C:\Games\TRprogram\Project3\MyForm.h(245,19): error C2039: "text_pass": не является членом "Project3::MyForm".
+  (компиляция исходного файла "MyForm.cpp")
+  C:\Games\TRprogram\Project3\MyForm.h(28,19):
+   см. объявление "Project3::MyForm"
+  
+C:\Games\TRprogram\Project3\MyForm.h(247,19): error C2039: "text_pass": не является членом "Project3::MyForm".
+  (компиляция исходного файла "MyForm.cpp")
+  C:\Games\TRprogram\Project3\MyForm.h(28,19):
+   см. объявление "Project3::MyForm"
+  
+C:\Games\TRprogram\Project3\MyForm.h(248,19): error C2039: "text_pass": не является членом "Project3::MyForm".
+  (компиляция исходного файла "MyForm.cpp")
+  C:\Games\TRprogram\Project3\MyForm.h(28,19):
+   см. объявление "Project3::MyForm"
+  
+C:\Games\TRprogram\Project3\MyForm.h(249,19): error C2039: "text_pass": не является членом "Project3::MyForm".
+  (компиляция исходного файла "MyForm.cpp")
+  C:\Games\TRprogram\Project3\MyForm.h(28,19):
+   см. объявление "Project3::MyForm"
+  
+C:\Games\TRprogram\Project3\MyForm.h(250,19): error C2039: "text_pass": не является членом "Project3::MyForm".
+  (компиляция исходного файла "MyForm.cpp")
+  C:\Games\TRprogram\Project3\MyForm.h(28,19):
+   см. объявление "Project3::MyForm"
+  
+C:\Games\TRprogram\Project3\MyForm.h(251,19): error C2039: "text_pass": не является членом "Project3::MyForm".
+  (компиляция исходного файла "MyForm.cpp")
+  C:\Games\TRprogram\Project3\MyForm.h(28,19):
+   см. объявление "Project3::MyForm"
+  
+C:\Games\TRprogram\Project3\MyForm.h(252,19): error C2039: "text_pass": не является членом "Project3::MyForm".
+  (компиляция исходного файла "MyForm.cpp")
+  C:\Games\TRprogram\Project3\MyForm.h(28,19):
+   см. объявление "Project3::MyForm"
+  
+C:\Games\TRprogram\Project3\MyForm.h(287,39): error C2039: "text_pass": не является членом "Project3::MyForm".
+  (компиляция исходного файла "MyForm.cpp")
+  C:\Games\TRprogram\Project3\MyForm.h(28,19):
+   см. объявление "Project3::MyForm"
+  
+C:\Games\TRprogram\Project3\MyForm.h(288,39): error C2039: "text_user": не является членом "Project3::MyForm".
+  (компиляция исходного файла "MyForm.cpp")
+  C:\Games\TRprogram\Project3\MyForm.h(28,19):
+   см. объявление "Project3::MyForm"
+  
+C:\Games\TRprogram\Project3\MyForm.h(314,6): error C2065: text_user: необъявленный идентификатор
+  (компиляция исходного файла "MyForm.cpp")
+  
+C:\Games\TRprogram\Project3\MyForm.h(315,24): error C2065: text_user: необъявленный идентификатор
+  (компиляция исходного файла "MyForm.cpp")
+  
+C:\Games\TRprogram\Project3\MyForm.h(315,41): error C2065: text_pass: необъявленный идентификатор
+  (компиляция исходного файла "MyForm.cpp")
+  
+C:\Games\TRprogram\Project3\MyForm.h(315,7): error C2660: Project3::MyForm::AuthenticateUser: функция не принимает 1 аргументов
+  (компиляция исходного файла "MyForm.cpp")
+  C:\Games\TRprogram\Project3\MyForm.h(38,8):
+   см. объявление "Project3::MyForm::AuthenticateUser"
+  C:\Games\TRprogram\Project3\MyForm.h(315,7):
+  при попытке сопоставить список аргументов "()"
+  
+  MyForm2.cpp
+  .NETFramework,Version=v4.7.2.AssemblyAttributes.cpp
+  Создание кода...

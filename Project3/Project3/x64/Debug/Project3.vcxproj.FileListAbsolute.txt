@@ -1,0 +1,15 @@
+C:\Users\Savin\OneDrive\Рабочий стол\лабы дома\Project3\Project3\x64\Debug\Project3.vcxproj.AssemblyReference.cache
+C:\Users\Savin\OneDrive\Рабочий стол\лабы дома\Project3\Project3\x64\Debug\Project3.MyForm.resources
+C:\Users\Savin\OneDrive\Рабочий стол\лабы дома\Project3\Project3\x64\Debug\Project3.MyForm2.resources
+C:\Users\Savin\OneDrive\Рабочий стол\лабы дома\Project3\Project3\x64\Debug\Project3.vcxproj.GenerateResource.cache
+C:\Users\Savin\OneDrive\Рабочий стол\учёба\VISUAL STUDIO\kursach\Project3\Project3\x64\Debug\Project3.vcxproj.AssemblyReference.cache
+C:\Users\Savin\OneDrive\Рабочий стол\учёба\VISUAL STUDIO\kursach\Project3\Project3\x64\Debug\Project3.MyForm.resources
+C:\Users\Savin\OneDrive\Рабочий стол\учёба\VISUAL STUDIO\kursach\Project3\Project3\x64\Debug\Project3.MyForm2.resources
+C:\Users\Savin\OneDrive\Рабочий стол\учёба\VISUAL STUDIO\kursach\Project3\Project3\x64\Debug\Project3.vcxproj.GenerateResource.cache
+C:\Users\Savin\OneDrive\Рабочий стол\учёба\VISUAL STUDIO\kursach\Project3\x64\Debug\AlphaBlendTextBox.dll
+C:\Users\Savin\OneDrive\Рабочий стол\учёба\VISUAL STUDIO\kursach\Project3\Project3\x64\Debug\Project3.vcxproj.Up2Date
+C:\Games\TRprogram\Project3\Project3\x64\Debug\Project3.vcxproj.AssemblyReference.cache
+C:\Games\TRprogram\Project3\Project3\x64\Debug\Project3.MyForm.resources
+C:\Games\TRprogram\Project3\Project3\x64\Debug\Project3.MyForm2.resources
+C:\Games\TRprogram\Project3\Project3\x64\Debug\Project3.vcxproj.GenerateResource.cache
+C:\Games\TRprogram\Project3\Project3\x64\Debug\Project3.vcxproj.Up2Date
