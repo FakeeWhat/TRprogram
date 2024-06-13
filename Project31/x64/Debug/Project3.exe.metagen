@@ -1,0 +1,51 @@
+  Project3.MyForm.resources - Embedded, ContainedInManifestFile, 
+  Project3.MyForm2.resources - Embedded, ContainedInManifestFile, 
+ImageRuntimeVersion: v4.0.30319
+Assembly Project3, Version=0.0.*, Culture=Инвариантный язык (Инвариантная страна): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly AlphaBlendTextBox, Version=1.0.*, Culture=Инвариантный язык (Инвариантная страна): 
+	hash=None, flags=None
+Assembly System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Assembly System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Drawing, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Class Project3.MyForm2: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    AreCarsExistForOwner(String): PrivateScope, Public, HideBySig
+    CheckRegex(String, String): PrivateScope, Public, HideBySig
+    UpdateRecordByOwnerAndCarNumber(String, String, String, String, String, String, String, TextBox): PrivateScope, Public, HideBySig
+    IsRecordExistsByOwnerAndCarNumber(String, String, String): PrivateScope, Public, HideBySig
+    ValidateInputData(String, String, String, String, String, String): PrivateScope, Public, HideBySig
+    IsValidCarNumber(String): PrivateScope, Public, HideBySig
+    AddRecord(String, Record): PrivateScope, Public, HideBySig
+    IsCarNumberExists(String, String): PrivateScope, Public, HideBySig
+    DisplayRecords(String, TextBox): PrivateScope, Public, HideBySig
+    RemoveRecordByCarNumber(String, String, TextBox): PrivateScope, Public, HideBySig
+Struct Project3.MyForm2+Record: AutoLayout, AnsiClass, Class, NestedPublic, SequentialLayout, Sealed, BeforeFieldInit
+  :System.ValueType
+  Fields:
+    System.String Model : Public
+    System.String Size : Public
+    System.String Name : Public
+    System.String Number : Public
+    System.String WeightWithCargo : Public
+    System.String WeightWithoutCargo : Public
+Class Project3.MyForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    AuthenticateUser(String, String): PrivateScope, Public, HideBySig
