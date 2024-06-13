@@ -28,6 +28,9 @@ namespace Project3 {
 			panel_del->Hide();
 			panel_look->Hide();
 			panel_report->Hide();
+			panel5->Hide();
+			panel6->Hide();
+			panel7->Hide();
 			//
 			//TODO: добавьте код конструктора
 			//
@@ -99,6 +102,7 @@ namespace Project3 {
 		void UpdateRecordByOwnerAndCarNumber(String^ fileName, String^ ownerName, String^ carNumber, String^ newBrand, String^ newsize, String^ newWeightWithCargo, String^ newWeightWithoutCargo, TextBox^ outputTextBox) {
 			// Проверяем, существует ли файл
 			if (!File::Exists(fileName)) {
+				outputTextBox->Clear();
 				outputTextBox->AppendText("Файл не найден.\r\n");
 				return;
 			}
@@ -130,6 +134,7 @@ namespace Project3 {
 						writer->Write(carNumber);
 						writer->Write(newWeightWithCargo);
 						writer->Write(newWeightWithoutCargo);
+						outputTextBox->Clear();
 						outputTextBox->AppendText("Запись обновлена.\r\n");
 					}
 					else {
@@ -154,6 +159,7 @@ namespace Project3 {
 				File::Move(tempFileName, fileName);
 			}
 			catch (Exception^ e) {
+				outputTextBox->Clear();
 				outputTextBox->AppendText("Ошибка при обновлении записи: " + e->Message + "\r\n");
 				// Закрываем все файлы
 				reader->Close();
@@ -207,26 +213,31 @@ namespace Project3 {
 			// Проверяем, что все поля не пустые
 			if (String::IsNullOrWhiteSpace(brand) || String::IsNullOrWhiteSpace(size) || String::IsNullOrWhiteSpace(owner) ||
 				String::IsNullOrWhiteSpace(carNumber) || String::IsNullOrWhiteSpace(weightWithCargo) || String::IsNullOrWhiteSpace(weightWithoutCargo)) {
+				outputTextBox->Clear();
 				return "Не все поля заполнены.";
 			}
 
 			// Проверяем, что объем содержит только числа
 			if (!Regex::Match(size, "^[0-9\\s.]+$")->Success) {
+				outputTextBox->Clear();
 				return "Ошибка: Объем должен содержать только цифры и точки.";
 			}
 
 			// Проверяем, что ФИО содержит только буквы, пробелы и точки
 			if (!Regex::Match(owner, "^[a-zA-Zа-яА-Я\\s.]+$")->Success) {
+				outputTextBox->Clear();
 				return "Ошибка: ФИО должно содержать только буквы, пробелы и точки.";
 			}
 
 			// Проверяем, что номер автомобиля соответствует формату
 			if (!IsValidCarNumber(carNumber)) {
-				return "Ошибка: Номер автомобиля должен быть в формате Х000ХХ00 или Х000ХХ000.";
+				outputTextBox->Clear();
+				return "Ошибка: Номер автомобиля должен быть в формате Х000ХХ00 или Х000ХХ000. Русскими символами!";
 			}
 
 			// Проверяем, что массы содержат только числа
 			if (!Regex::Match(weightWithCargo, "^[0-9]+$")->Success || !Regex::Match(weightWithoutCargo, "^[0-9]+$")->Success) {
+				outputTextBox->Clear();
 				return "Ошибка: Введите числовое значение для массы.";
 			}
 
@@ -256,6 +267,7 @@ namespace Project3 {
 				writer->Write(record.WeightWithoutCargo);
 
 				// Добавляем информацию об успешной записи в поле вывода
+				outputTextBox->Clear();
 				outputTextBox->AppendText("Запись успешно добавлена в файл:\r\n");
 				outputTextBox->AppendText("Марка автомобиля: " + record.Model + "\r\n");
 				outputTextBox->AppendText("Объем кузова (м^3): " + record.Size + "\r\n");
@@ -263,10 +275,10 @@ namespace Project3 {
 				outputTextBox->AppendText("Номер автомобиля: " + record.Number + "\r\n");
 				outputTextBox->AppendText("Масса с грузом (кг): " + record.WeightWithCargo + "\r\n");
 				outputTextBox->AppendText("Масса без груза (кг): " + record.WeightWithoutCargo + "\r\n");
-				outputTextBox->AppendText("-----------------------------------------\r\n");
 			}
 			catch (Exception^ e) {
 				// Обрабатываем возможные ошибки
+				outputTextBox->Clear();
 				outputTextBox->AppendText("Ошибка при записи в файл: " + e->Message + "\r\n");
 			}
 			finally {
@@ -321,10 +333,11 @@ namespace Project3 {
 		// Функция для чтения всех записей из файла и вывода их в поле вывода
 		void DisplayRecords(String^ fileName, TextBox^ outputTextBox) {
 			// Очищаем поле вывода
-			outputTextBox->Clear();
+			//outputTextBox->Clear();
 
 			// Проверяем, существует ли файл
 			if (!File::Exists(fileName)) {
+				outputTextBox->Clear();
 				outputTextBox->AppendText("Файл не найден.\r\n");
 				return;
 			}
@@ -335,12 +348,12 @@ namespace Project3 {
 
 
 			// Выводим предварительное сообщение
-			outputTextBox->AppendText("Список всех записей с автомобилями:\r\n");
-			outputTextBox->AppendText("-----------------------------------------\r\n");
+			//outputTextBox->AppendText("Список всех записей с автомобилями:\r\n");
+			//outputTextBox->AppendText("-----------------------------------------\r\n");
 
 			try {
 				// Считываем и выводим записи из файла
-				while (reader->BaseStream->Position < reader->BaseStream->Length) {
+				/*while (reader->BaseStream->Position < reader->BaseStream->Length) {
 					outputTextBox->AppendText("Марка автомобиля: " + reader->ReadString() + "\r\n");
 					outputTextBox->AppendText("Объем кузова (м^3): " + reader->ReadString() + "\r\n");
 					outputTextBox->AppendText("ФИО владельца: " + reader->ReadString() + "\r\n");
@@ -348,7 +361,7 @@ namespace Project3 {
 					outputTextBox->AppendText("Масса с грузом (кг): " + reader->ReadString() + "\r\n");
 					outputTextBox->AppendText("Масса без груза (кг): " + reader->ReadString() + "\r\n");
 					outputTextBox->AppendText("-----------------------------------------\r\n");
-				}
+				}*/
 			}
 			catch (Exception^ e) {
 				outputTextBox->AppendText("Ошибка при чтении файла: " + e->Message + "\r\n");
@@ -364,12 +377,14 @@ namespace Project3 {
 		void RemoveRecordByCarNumber(String^ fileName, String^ carNumber, TextBox^ outputTextBox) {
 			// Проверяем, существует ли файл
 			if (!File::Exists(fileName)) {
+				outputTextBox->Clear();
 				outputTextBox->AppendText("Файл не найден.\r\n");
 				return;
 			}
 
 			// Проверяем, существует ли автомобиль с указанным номером в базе
 			if (!IsCarNumberExists(fileName, carNumber)) {
+				outputTextBox->Clear();
 				outputTextBox->AppendText("Автомобиль с номером " + carNumber + " не найден в базе.\r\n");
 				return;
 			}
@@ -421,10 +436,11 @@ namespace Project3 {
 					// Заменяем исходный файл временным
 					File::Delete(fileName);
 					File::Move(tempFileName, fileName);
-
+					outputTextBox->Clear();
 					outputTextBox->AppendText("Запись с номером автомобиля " + carNumber + " удалена.\r\n");
 				}
 				catch (Exception^ e) {
+					outputTextBox->Clear();
 					outputTextBox->AppendText("Ошибка при удалении записи: " + e->Message + "\r\n");
 					// Закрываем все файлы
 					reader->Close();
@@ -436,6 +452,7 @@ namespace Project3 {
 				}
 			}
 			else {
+				outputTextBox->Clear();
 				outputTextBox->AppendText("Удаление записи отменено.\r\n");
 			}
 		}
@@ -589,6 +606,96 @@ private: System::Windows::Forms::Button^ button3;
 private: System::Windows::Forms::Button^ button4;
 private: System::Windows::Forms::Panel^ SidePanel;
 private: System::Windows::Forms::Button^ button1;
+private: System::Windows::Forms::DataGridView^ dataGridView1;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ Number;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ Model;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ Owner;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ Volume;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ WeightWithoutCargo;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ WeightWithCargo;
+private: System::Windows::Forms::Panel^ panel5;
+private: System::Windows::Forms::Panel^ panel6;
+private: System::Windows::Forms::Panel^ panel7;
+private: System::Windows::Forms::DataGridView^ dataGridView2;
+
+
+
+
+
+
+private: System::Windows::Forms::Label^ label22;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn2;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ quantity;
+private: System::Windows::Forms::Label^ label23;
+private: System::Windows::Forms::Label^ label25;
+private: System::Windows::Forms::Label^ label26;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -700,6 +807,14 @@ private: System::Windows::Forms::Button^ button1;
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm2::typeid));
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle3 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle4 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle5 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle6 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle7 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle8 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->but_exit = (gcnew System::Windows::Forms::Button());
 			this->outputTextBox = (gcnew System::Windows::Forms::TextBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
@@ -707,6 +822,7 @@ private: System::Windows::Forms::Button^ button1;
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
 			this->panel2 = (gcnew System::Windows::Forms::Panel());
+			this->panel6 = (gcnew System::Windows::Forms::Panel());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->SidePanel = (gcnew System::Windows::Forms::Panel());
 			this->button3 = (gcnew System::Windows::Forms::Button());
@@ -719,11 +835,13 @@ private: System::Windows::Forms::Button^ button1;
 			this->button_delete = (gcnew System::Windows::Forms::Button());
 			this->button_add = (gcnew System::Windows::Forms::Button());
 			this->panel_del = (gcnew System::Windows::Forms::Panel());
+			this->label23 = (gcnew System::Windows::Forms::Label());
 			this->label19 = (gcnew System::Windows::Forms::Label());
 			this->label24 = (gcnew System::Windows::Forms::Label());
 			this->textBox18 = (gcnew System::Windows::Forms::TextBox());
 			this->button_delete1 = (gcnew System::Windows::Forms::Button());
 			this->panel_change = (gcnew System::Windows::Forms::Panel());
+			this->label25 = (gcnew System::Windows::Forms::Label());
 			this->panel3 = (gcnew System::Windows::Forms::Panel());
 			this->label17 = (gcnew System::Windows::Forms::Label());
 			this->label16 = (gcnew System::Windows::Forms::Label());
@@ -741,6 +859,7 @@ private: System::Windows::Forms::Button^ button1;
 			this->textBox13 = (gcnew System::Windows::Forms::TextBox());
 			this->button_change1 = (gcnew System::Windows::Forms::Button());
 			this->panel_add = (gcnew System::Windows::Forms::Panel());
+			this->label26 = (gcnew System::Windows::Forms::Label());
 			this->label9 = (gcnew System::Windows::Forms::Label());
 			this->textBox7 = (gcnew System::Windows::Forms::TextBox());
 			this->label8 = (gcnew System::Windows::Forms::Label());
@@ -767,9 +886,23 @@ private: System::Windows::Forms::Button^ button1;
 			this->saveFileDialog1 = (gcnew System::Windows::Forms::SaveFileDialog());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->label21 = (gcnew System::Windows::Forms::Label());
+			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
+			this->Number = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Model = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Owner = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->Volume = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->WeightWithoutCargo = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->WeightWithCargo = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->panel5 = (gcnew System::Windows::Forms::Panel());
+			this->panel7 = (gcnew System::Windows::Forms::Panel());
+			this->dataGridView2 = (gcnew System::Windows::Forms::DataGridView());
+			this->dataGridViewTextBoxColumn2 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->quantity = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->label22 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->panel1->SuspendLayout();
 			this->panel2->SuspendLayout();
+			this->panel6->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			this->panel_manage->SuspendLayout();
 			this->panel_del->SuspendLayout();
@@ -777,6 +910,10 @@ private: System::Windows::Forms::Button^ button1;
 			this->panel_add->SuspendLayout();
 			this->panel_look->SuspendLayout();
 			this->panel_report->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
+			this->panel5->SuspendLayout();
+			this->panel7->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// but_exit
@@ -799,19 +936,21 @@ private: System::Windows::Forms::Button^ button1;
 			this->but_exit->Text = L"X";
 			this->but_exit->UseVisualStyleBackColor = false;
 			this->but_exit->Click += gcnew System::EventHandler(this, &MyForm2::button1_Click);
+			this->but_exit->MouseEnter += gcnew System::EventHandler(this, &MyForm2::but_exit_MouseEnter);
+			this->but_exit->MouseLeave += gcnew System::EventHandler(this, &MyForm2::but_exit_MouseLeave);
 			// 
 			// outputTextBox
 			// 
 			this->outputTextBox->BackColor = System::Drawing::Color::DimGray;
+			this->outputTextBox->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->outputTextBox->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->outputTextBox->ForeColor = System::Drawing::Color::White;
-			this->outputTextBox->Location = System::Drawing::Point(265, 428);
+			this->outputTextBox->Location = System::Drawing::Point(3, 40);
 			this->outputTextBox->Multiline = true;
 			this->outputTextBox->Name = L"outputTextBox";
 			this->outputTextBox->ReadOnly = true;
-			this->outputTextBox->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
-			this->outputTextBox->Size = System::Drawing::Size(723, 210);
+			this->outputTextBox->Size = System::Drawing::Size(211, 207);
 			this->outputTextBox->TabIndex = 1;
 			// 
 			// label1
@@ -833,7 +972,7 @@ private: System::Windows::Forms::Button^ button1;
 				static_cast<System::Byte>(204)));
 			this->label2->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->label2->Location = System::Drawing::Point(261, 405);
+			this->label2->Location = System::Drawing::Point(11, 1);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(119, 21);
 			this->label2->TabIndex = 3;
@@ -868,6 +1007,7 @@ private: System::Windows::Forms::Button^ button1;
 			// panel2
 			// 
 			this->panel2->BackColor = System::Drawing::Color::DimGray;
+			this->panel2->Controls->Add(this->panel6);
 			this->panel2->Controls->Add(this->button1);
 			this->panel2->Controls->Add(this->SidePanel);
 			this->panel2->Controls->Add(this->button3);
@@ -882,6 +1022,14 @@ private: System::Windows::Forms::Button^ button1;
 			this->panel2->Name = L"panel2";
 			this->panel2->Size = System::Drawing::Size(250, 614);
 			this->panel2->TabIndex = 0;
+			// 
+			// panel6
+			// 
+			this->panel6->Controls->Add(this->outputTextBox);
+			this->panel6->Location = System::Drawing::Point(12, 351);
+			this->panel6->Name = L"panel6";
+			this->panel6->Size = System::Drawing::Size(232, 261);
+			this->panel6->TabIndex = 13;
 			// 
 			// button1
 			// 
@@ -1050,6 +1198,7 @@ private: System::Windows::Forms::Button^ button1;
 			// 
 			this->panel_del->Anchor = System::Windows::Forms::AnchorStyles::None;
 			this->panel_del->BackColor = System::Drawing::Color::LightGray;
+			this->panel_del->Controls->Add(this->label23);
 			this->panel_del->Controls->Add(this->label19);
 			this->panel_del->Controls->Add(this->label24);
 			this->panel_del->Controls->Add(this->textBox18);
@@ -1058,6 +1207,18 @@ private: System::Windows::Forms::Button^ button1;
 			this->panel_del->Name = L"panel_del";
 			this->panel_del->Size = System::Drawing::Size(514, 326);
 			this->panel_del->TabIndex = 16;
+			// 
+			// label23
+			// 
+			this->label23->AutoSize = true;
+			this->label23->Font = (gcnew System::Drawing::Font(L"Segoe UI", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label23->ForeColor = System::Drawing::Color::Black;
+			this->label23->Location = System::Drawing::Point(25, 95);
+			this->label23->Name = L"label23";
+			this->label23->Size = System::Drawing::Size(133, 20);
+			this->label23->TabIndex = 14;
+			this->label23->Text = L"Русские символы!";
 			// 
 			// label19
 			// 
@@ -1112,6 +1273,7 @@ private: System::Windows::Forms::Button^ button1;
 			// 
 			this->panel_change->Anchor = System::Windows::Forms::AnchorStyles::None;
 			this->panel_change->BackColor = System::Drawing::Color::LightGray;
+			this->panel_change->Controls->Add(this->label25);
 			this->panel_change->Controls->Add(this->panel3);
 			this->panel_change->Controls->Add(this->label17);
 			this->panel_change->Controls->Add(this->label16);
@@ -1132,6 +1294,18 @@ private: System::Windows::Forms::Button^ button1;
 			this->panel_change->Name = L"panel_change";
 			this->panel_change->Size = System::Drawing::Size(514, 326);
 			this->panel_change->TabIndex = 10;
+			// 
+			// label25
+			// 
+			this->label25->AutoSize = true;
+			this->label25->Font = (gcnew System::Drawing::Font(L"Segoe UI", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label25->ForeColor = System::Drawing::Color::Black;
+			this->label25->Location = System::Drawing::Point(28, 148);
+			this->label25->Name = L"label25";
+			this->label25->Size = System::Drawing::Size(133, 20);
+			this->label25->TabIndex = 17;
+			this->label25->Text = L"Русские символы!";
 			// 
 			// panel3
 			// 
@@ -1311,6 +1485,7 @@ private: System::Windows::Forms::Button^ button1;
 			// 
 			this->panel_add->Anchor = System::Windows::Forms::AnchorStyles::None;
 			this->panel_add->BackColor = System::Drawing::Color::LightGray;
+			this->panel_add->Controls->Add(this->label26);
 			this->panel_add->Controls->Add(this->label9);
 			this->panel_add->Controls->Add(this->textBox7);
 			this->panel_add->Controls->Add(this->label8);
@@ -1328,6 +1503,18 @@ private: System::Windows::Forms::Button^ button1;
 			this->panel_add->Name = L"panel_add";
 			this->panel_add->Size = System::Drawing::Size(514, 326);
 			this->panel_add->TabIndex = 9;
+			// 
+			// label26
+			// 
+			this->label26->AutoSize = true;
+			this->label26->Font = (gcnew System::Drawing::Font(L"Segoe UI", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label26->ForeColor = System::Drawing::Color::Black;
+			this->label26->Location = System::Drawing::Point(28, 289);
+			this->label26->Name = L"label26";
+			this->label26->Size = System::Drawing::Size(133, 20);
+			this->label26->TabIndex = 17;
+			this->label26->Text = L"Русские символы!";
 			// 
 			// label9
 			// 
@@ -1628,6 +1815,154 @@ private: System::Windows::Forms::Button^ button1;
 			this->label21->TabIndex = 5;
 			this->label21->Text = L"Вас приветствует программа учёта автомобилей\r\n";
 			// 
+			// dataGridView1
+			// 
+			this->dataGridView1->BackgroundColor = System::Drawing::Color::White;
+			this->dataGridView1->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->dataGridView1->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridView1->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(6) {
+				this->Number,
+					this->Model, this->Owner, this->Volume, this->WeightWithoutCargo, this->WeightWithCargo
+			});
+			this->dataGridView1->Location = System::Drawing::Point(17, 25);
+			this->dataGridView1->Name = L"dataGridView1";
+			this->dataGridView1->Size = System::Drawing::Size(720, 207);
+			this->dataGridView1->TabIndex = 20;
+			this->dataGridView1->CellContentClick += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &MyForm2::dataGridView1_CellContentClick);
+			// 
+			// Number
+			// 
+			dataGridViewCellStyle1->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			dataGridViewCellStyle1->ForeColor = System::Drawing::Color::Black;
+			dataGridViewCellStyle1->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+			this->Number->DefaultCellStyle = dataGridViewCellStyle1;
+			this->Number->HeaderText = L"Номер авто";
+			this->Number->Name = L"Number";
+			this->Number->ReadOnly = true;
+			this->Number->Width = 63;
+			// 
+			// Model
+			// 
+			dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			dataGridViewCellStyle2->ForeColor = System::Drawing::Color::Black;
+			this->Model->DefaultCellStyle = dataGridViewCellStyle2;
+			this->Model->HeaderText = L"Марка авто";
+			this->Model->Name = L"Model";
+			this->Model->ReadOnly = true;
+			this->Model->Width = 162;
+			// 
+			// Owner
+			// 
+			dataGridViewCellStyle3->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			dataGridViewCellStyle3->ForeColor = System::Drawing::Color::Black;
+			this->Owner->DefaultCellStyle = dataGridViewCellStyle3;
+			this->Owner->HeaderText = L"Владелец";
+			this->Owner->Name = L"Owner";
+			this->Owner->ReadOnly = true;
+			this->Owner->Width = 239;
+			// 
+			// Volume
+			// 
+			dataGridViewCellStyle4->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			dataGridViewCellStyle4->ForeColor = System::Drawing::Color::Black;
+			this->Volume->DefaultCellStyle = dataGridViewCellStyle4;
+			this->Volume->HeaderText = L"Объём кузова (м^3)";
+			this->Volume->Name = L"Volume";
+			this->Volume->ReadOnly = true;
+			this->Volume->Width = 47;
+			// 
+			// WeightWithoutCargo
+			// 
+			dataGridViewCellStyle5->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			dataGridViewCellStyle5->ForeColor = System::Drawing::Color::Black;
+			this->WeightWithoutCargo->DefaultCellStyle = dataGridViewCellStyle5;
+			this->WeightWithoutCargo->HeaderText = L"Масса без груза (кг)";
+			this->WeightWithoutCargo->Name = L"WeightWithoutCargo";
+			this->WeightWithoutCargo->ReadOnly = true;
+			this->WeightWithoutCargo->Width = 78;
+			// 
+			// WeightWithCargo
+			// 
+			dataGridViewCellStyle6->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			dataGridViewCellStyle6->ForeColor = System::Drawing::Color::Black;
+			this->WeightWithCargo->DefaultCellStyle = dataGridViewCellStyle6;
+			this->WeightWithCargo->HeaderText = L"Масса с грузом (кг)";
+			this->WeightWithCargo->Name = L"WeightWithCargo";
+			this->WeightWithCargo->ReadOnly = true;
+			this->WeightWithCargo->Width = 73;
+			// 
+			// panel5
+			// 
+			this->panel5->Controls->Add(this->dataGridView1);
+			this->panel5->Controls->Add(this->label2);
+			this->panel5->Location = System::Drawing::Point(250, 402);
+			this->panel5->Name = L"panel5";
+			this->panel5->Size = System::Drawing::Size(750, 247);
+			this->panel5->TabIndex = 21;
+			// 
+			// panel7
+			// 
+			this->panel7->Controls->Add(this->dataGridView2);
+			this->panel7->Controls->Add(this->label22);
+			this->panel7->Location = System::Drawing::Point(250, 402);
+			this->panel7->Name = L"panel7";
+			this->panel7->Size = System::Drawing::Size(750, 247);
+			this->panel7->TabIndex = 22;
+			// 
+			// dataGridView2
+			// 
+			this->dataGridView2->BackgroundColor = System::Drawing::Color::White;
+			this->dataGridView2->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->dataGridView2->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridView2->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(2) {
+				this->dataGridViewTextBoxColumn2,
+					this->quantity
+			});
+			this->dataGridView2->Location = System::Drawing::Point(17, 25);
+			this->dataGridView2->Name = L"dataGridView2";
+			this->dataGridView2->Size = System::Drawing::Size(720, 207);
+			this->dataGridView2->TabIndex = 20;
+			// 
+			// dataGridViewTextBoxColumn2
+			// 
+			dataGridViewCellStyle7->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			dataGridViewCellStyle7->ForeColor = System::Drawing::Color::Black;
+			this->dataGridViewTextBoxColumn2->DefaultCellStyle = dataGridViewCellStyle7;
+			this->dataGridViewTextBoxColumn2->HeaderText = L"Марка авто";
+			this->dataGridViewTextBoxColumn2->Name = L"dataGridViewTextBoxColumn2";
+			this->dataGridViewTextBoxColumn2->ReadOnly = true;
+			this->dataGridViewTextBoxColumn2->Width = 162;
+			// 
+			// quantity
+			// 
+			dataGridViewCellStyle8->Font = (gcnew System::Drawing::Font(L"Segoe UI", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			dataGridViewCellStyle8->ForeColor = System::Drawing::Color::Black;
+			this->quantity->DefaultCellStyle = dataGridViewCellStyle8;
+			this->quantity->HeaderText = L"Количество машин";
+			this->quantity->Name = L"quantity";
+			this->quantity->ReadOnly = true;
+			// 
+			// label22
+			// 
+			this->label22->AutoSize = true;
+			this->label22->Font = (gcnew System::Drawing::Font(L"Segoe UI", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label22->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
+				static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->label22->Location = System::Drawing::Point(11, 1);
+			this->label22->Name = L"label22";
+			this->label22->Size = System::Drawing::Size(119, 21);
+			this->label22->TabIndex = 3;
+			this->label22->Text = L"Поле вывода:";
+			// 
 			// MyForm2
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -1635,10 +1970,10 @@ private: System::Windows::Forms::Button^ button1;
 			this->BackColor = System::Drawing::Color::White;
 			this->ClientSize = System::Drawing::Size(1000, 650);
 			this->Controls->Add(this->panel2);
-			this->Controls->Add(this->label2);
-			this->Controls->Add(this->outputTextBox);
 			this->Controls->Add(this->but_exit);
 			this->Controls->Add(this->panel1);
+			this->Controls->Add(this->panel7);
+			this->Controls->Add(this->panel5);
 			this->Controls->Add(this->panel_report);
 			this->Controls->Add(this->panel_look);
 			this->Controls->Add(this->panel_manage);
@@ -1655,6 +1990,8 @@ private: System::Windows::Forms::Button^ button1;
 			this->panel1->PerformLayout();
 			this->panel2->ResumeLayout(false);
 			this->panel2->PerformLayout();
+			this->panel6->ResumeLayout(false);
+			this->panel6->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			this->panel_manage->ResumeLayout(false);
 			this->panel_manage->PerformLayout();
@@ -1668,6 +2005,12 @@ private: System::Windows::Forms::Button^ button1;
 			this->panel_look->PerformLayout();
 			this->panel_report->ResumeLayout(false);
 			this->panel_report->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
+			this->panel5->ResumeLayout(false);
+			this->panel5->PerformLayout();
+			this->panel7->ResumeLayout(false);
+			this->panel7->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView2))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -1685,21 +2028,27 @@ private: System::Windows::Forms::Button^ button1;
 		panel_manage->Show();
 		panel_look->Hide();
 		panel_report->Hide();
+		panel6->Show();
+		panel7->Hide();
+		outputTextBox->Clear();
 	}
 	private: System::Void button6_Click(System::Object^ sender, System::EventArgs^ e) {
 		panel_del->Hide();
 		panel_change->Hide();
 		panel_add->Show();
+		outputTextBox->Clear();
 	}
 	private: System::Void button8_Click(System::Object^ sender, System::EventArgs^ e) {
 		panel_add->Hide();
 		panel_del->Hide();
 		panel_change->Show();
+		outputTextBox->Clear();
 	}
 	private: System::Void button7_Click(System::Object^ sender, System::EventArgs^ e) {
 		panel_add->Hide();		
 		panel_change->Hide();
 		panel_del->Show();
+		outputTextBox->Clear();
 	}
 	private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {
 		SidePanel->Height = button4->Height;
@@ -1707,6 +2056,9 @@ private: System::Windows::Forms::Button^ button1;
 		panel_look->Show();
 		panel_manage->Hide();
 		panel_report->Hide();
+		panel6->Show();
+		panel7->Hide();
+		outputTextBox->Clear();
 	}
 	private: System::Void button15_Click(System::Object^ sender, System::EventArgs^ e) {
 		panel_look->Hide();
@@ -1717,6 +2069,9 @@ private: System::Windows::Forms::Button^ button1;
 		panel_report->Show();
 		panel_look->Hide();
 		panel_manage->Hide();
+		panel6->Show();
+		panel7->Hide();
+		outputTextBox->Clear();
 	}
 	private: System::Void button16_Click(System::Object^ sender, System::EventArgs^ e) {
 		panel_report->Hide();
@@ -1730,6 +2085,8 @@ private: System::Void button_add_Click(System::Object^ sender, System::EventArgs
 	String^ weightWithCargo = textBox6->Text;
 	String^ weightWithoutCargo = textBox7->Text;
 
+	outputTextBox->Clear();
+
 	// Проверяем корректность введенных данных
 	String^ validationErrors = ValidateInputData(brand, size, owner, carNumber, weightWithCargo, weightWithoutCargo);
 
@@ -1742,6 +2099,7 @@ private: System::Void button_add_Click(System::Object^ sender, System::EventArgs
 	// Проверяем, существует ли уже автомобиль с указанным номером в базе
 	String^ fileName = "records.bin";
 	if (IsCarNumberExists(fileName, carNumber)) {
+		outputTextBox->Clear();
 		outputTextBox->AppendText("Ошибка: Автомобиль с таким номером уже существует в базе.\r\n");
 		return;
 	}
@@ -1765,10 +2123,19 @@ private: System::Void button_add_Click(System::Object^ sender, System::EventArgs
 	textBox4->Clear();
 	textBox5->Clear();
 	textBox6->Clear();
+
+	DisplayRecords(fileName, outputTextBox);
+	panel7->Hide();
+	panel5->Show();
+	LoadDataToDataGridView(fileName);
 }
 private: System::Void button14_Click(System::Object^ sender, System::EventArgs^ e) {
 	String^ fileName = "records.bin"; // Имя файла
 	DisplayRecords(fileName, outputTextBox);
+	outputTextBox->Clear();
+	panel7->Hide();
+	panel5->Show();
+	LoadDataToDataGridView(fileName);
 }
 private: System::Void button11_Click(System::Object^ sender, System::EventArgs^ e) {
 	String^ carNumberToDelete = textBox18->Text; // Получаем номер автомобиля для удаления
@@ -1776,12 +2143,15 @@ private: System::Void button11_Click(System::Object^ sender, System::EventArgs^ 
 
 	// Проверяем корректность формата номера автомобиля
 	if (!IsValidCarNumber(carNumberToDelete)) {
+		outputTextBox->Clear();
 		outputTextBox->AppendText("Неправильный формат номера автомобиля.\r\n");
 		return;
 	}
 
 	RemoveRecordByCarNumber(fileName, carNumberToDelete, outputTextBox);
 	textBox18 -> Clear();
+
+	LoadDataToDataGridView(fileName);
 }
 private: System::Void button10_Click(System::Object^ sender, System::EventArgs^ e) {
 	String^ ownerNameToUpdate = textBox11->Text; // Получаем ФИО владельца для обновления
@@ -1795,12 +2165,14 @@ private: System::Void button10_Click(System::Object^ sender, System::EventArgs^ 
 	// Проверяем введенные данные на корректность
 	String^ errorMessage = ValidateInputData(newBrand, newsize, ownerNameToUpdate, carNumberToUpdate, newWeightWithCargo, newWeightWithoutCargo);
 	if (errorMessage != "") {
+		outputTextBox->Clear();
 		outputTextBox->AppendText(errorMessage + "\r\n");
 		return;
 	}
 
 	// Проверяем существование записи с указанным ФИО и номером автомобиля
 	if (!IsRecordExistsByOwnerAndCarNumber(fileName, ownerNameToUpdate, carNumberToUpdate)) {
+		outputTextBox->Clear();
 		outputTextBox->AppendText("Запись с указанным ФИО и номером автомобиля не найдена.\r\n");
 		return;
 	}
@@ -1824,16 +2196,26 @@ private: System::Void button10_Click(System::Object^ sender, System::EventArgs^ 
 		textBox8->Clear();
 	}
 	else {
+		outputTextBox->Clear();
 		outputTextBox->AppendText("Изменение отменено пользователем.\r\n");
 	}
+
+	DisplayRecords(fileName, outputTextBox);
+	panel7->Hide();
+	panel5->Show();
+	LoadDataToDataGridView(fileName);
 }
 private: System::Void button12_Click(System::Object^ sender, System::EventArgs^ e) {
 	String^ fileName = "records.bin"; // Имя файла
 	Dictionary<String^, int>^ brandCounts = gcnew Dictionary<String^, int>(); // Словарь для хранения марок и их количества
 	outputTextBox->Clear();
+	panel5->Hide();
+	panel7->Show();
+	dataGridView2->Rows->Clear();
 
 	// Проверяем существование файла
 	if (!File::Exists(fileName)) {
+		outputTextBox->Clear();
 		outputTextBox->AppendText("Файл не найден.\r\n");
 		return;
 	}
@@ -1841,9 +2223,31 @@ private: System::Void button12_Click(System::Object^ sender, System::EventArgs^ 
 	// Открываем файл для чтения
 	FileStream^ fs = gcnew FileStream(fileName, FileMode::Open, FileAccess::Read);
 	BinaryReader^ reader = gcnew BinaryReader(fs);
-	outputTextBox->AppendText("Марки автомобилей и их количество:\r\n");
-	outputTextBox->AppendText("-----------------------------------------\r\n");
+	//outputTextBox->AppendText("Марки автомобилей и их количество:\r\n");
+	//outputTextBox->AppendText("-----------------------------------------\r\n");
 
+	/*try {
+		while (reader->BaseStream->Position < reader->BaseStream->Length) {
+			// Читаем марку из файла
+			String^ brand = reader->ReadString();
+
+			// Если марка уже есть в словаре, увеличиваем счетчик
+			if (brandCounts->ContainsKey(brand)) {
+				brandCounts[brand]++;
+			}
+			// Иначе добавляем марку в словарь со счетчиком 1
+			else {
+				brandCounts->Add(brand, 1);
+			}
+
+			// Пропускаем остальные поля записи
+			reader->ReadString(); // Объем
+			reader->ReadString(); // ФИО
+			reader->ReadString(); // Номер автомобиля
+			reader->ReadString(); // Масса с грузом
+			reader->ReadString(); // Масса без груза
+		}
+	}*/
 	try {
 		while (reader->BaseStream->Position < reader->BaseStream->Length) {
 			// Читаем марку из файла
@@ -1868,6 +2272,7 @@ private: System::Void button12_Click(System::Object^ sender, System::EventArgs^ 
 	}
 	catch (...) {
 		// В случае ошибки выводим сообщение
+		outputTextBox->Clear();
 		outputTextBox->AppendText("Ошибка при чтении файла.\r\n");
 	}
 	finally {
@@ -1878,14 +2283,16 @@ private: System::Void button12_Click(System::Object^ sender, System::EventArgs^ 
 
 	// Выводим марки и их количество в поле вывода
 	for each (KeyValuePair<String^, int> ^ kvp in brandCounts) {
-		outputTextBox->AppendText(kvp->Key + ": " + kvp->Value + "\r\n");
+	dataGridView2->Rows->Add(kvp->Key, kvp->Value);
 	}
 }
 private: System::Void button13_Click(System::Object^ sender, System::EventArgs^ e) {
 	String^ ownerName = textBox14->Text; // Получаем введённое ФИО владельца автомобилей
+	outputTextBox->Clear();
 
 	// Проверяем, существуют ли автомобили для введённого ФИО
 	if (!AreCarsExistForOwner(ownerName)) {
+		outputTextBox->Clear();
 		MessageBox::Show("Для введённого владельца автомобили отсутствуют.", "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		return; // Прерываем выполнение метода, так как нет автомобилей для сохранения
 	}
@@ -1915,6 +2322,7 @@ private: System::Void button13_Click(System::Object^ sender, System::EventArgs^ 
 
 		// Проверяем существование файла с данными
 		if (!File::Exists(fileName)) {
+			outputTextBox->Clear();
 			outputTextBox->AppendText("Файл не найден.\r\n");
 			writer->Close();
 			return;
@@ -1953,6 +2361,7 @@ private: System::Void button13_Click(System::Object^ sender, System::EventArgs^ 
 		}
 		catch (...) {
 			// В случае ошибки выводим сообщение
+			outputTextBox->Clear();
 			textBox7->AppendText("Ошибка при чтении файла.\r\n");
 		}
 		finally {
@@ -1971,16 +2380,21 @@ private: System::Void button1_Click_2(System::Object^ sender, System::EventArgs^
 	OpenFileDialog^ openFileDialog1 = gcnew OpenFileDialog(); // Диалоговое окно для выбора файла
 	openFileDialog1->Filter = "Бинарные файлы (*.bin)|*.bin|Все файлы (*.*)|*.*";
 	openFileDialog1->Title = "Выберите файл для открытия";
+	outputTextBox->Clear();
 
 	// Открываем диалоговое окно для выбора файла
 	if (openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
 		String^ filePath = openFileDialog1->FileName; // Получаем путь к выбранному файлу
 
+		// Очищаем DataGridView перед загрузкой данных
+		dataGridView1->Rows->Clear();
+		panel5->Show();
+
 		// Открываем файл для чтения в бинарном формате
 		FileStream^ fs = gcnew FileStream(filePath, FileMode::Open);
 		BinaryReader^ reader = gcnew BinaryReader(fs);
 
-		try {
+		/*try {
 			// Очищаем поле вывода перед выводом новых данных
 			outputTextBox->Clear();
 
@@ -2002,9 +2416,24 @@ private: System::Void button1_Click_2(System::Object^ sender, System::EventArgs^
 				outputTextBox->AppendText("Масса без груза(кг): " + weightWithoutCargo + "\r\n");
 				outputTextBox->AppendText("--------------------------\r\n");
 			}
+		}*/
+		try {
+			// Чтение данных из файла и добавление их в DataGridView
+			while (reader->BaseStream->Position < reader->BaseStream->Length) {
+				String^ brand = reader->ReadString(); // Читаем марку автомобиля
+				String^ size = reader->ReadString(); // Читаем объем кузова
+				String^ ownerName = reader->ReadString(); // Читаем ФИО владельца
+				String^ carNumber = reader->ReadString(); // Читаем номер автомобиля
+				String^ cargoWeight = reader->ReadString(); // Читаем массу с грузом
+				String^ weightWithoutCargo = reader->ReadString(); // Читаем массу без груза
+
+				// Добавление строки в DataGridView
+				dataGridView1->Rows->Add(carNumber, brand, ownerName, size, weightWithoutCargo, cargoWeight);
+			}
 		}
 		catch (...) {
 			// В случае ошибки выводим сообщение
+			outputTextBox->Clear();
 			outputTextBox->AppendText("Ошибка при чтении файла.\r\n");
 		}
 		finally {
@@ -2037,6 +2466,57 @@ private: System::Void button1_Click_3(System::Object^ sender, System::EventArgs^
 	panel_manage->Hide();
 	panel_look->Hide();
 	panel_report->Hide();
+	panel5->Hide();
+	panel6->Hide();
+	panel7->Hide();
+	outputTextBox->Clear();
+}
+private: System::Void dataGridView1_CellContentClick(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
+}
+private: System::Void LoadDataToDataGridView(String^ fileName)
+{
+    // Очищаем DataGridView перед загрузкой данных
+    dataGridView1->Rows->Clear();
+
+    // Проверяем, существует ли файл
+    if (!File::Exists(fileName)) {
+        MessageBox::Show("Файл не найден.", "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+        return;
+    }
+
+    // Открываем файл для чтения
+    FileStream^ fs = gcnew FileStream(fileName, FileMode::Open, FileAccess::Read);
+    BinaryReader^ reader = gcnew BinaryReader(fs);
+
+    try {
+        // Чтение данных из файла и добавление их в DataGridView
+        while (reader->BaseStream->Position < reader->BaseStream->Length) {
+			String^ brand = reader->ReadString(); // Читаем марку автомобиля
+			String^ size = reader->ReadString(); // Читаем объем кузова
+			String^ ownerName = reader->ReadString(); // Читаем ФИО владельца
+			String^ carNumber = reader->ReadString(); // Читаем номер автомобиля
+			String^ cargoWeight = reader->ReadString(); // Читаем массу с грузом
+			String^ weightWithoutCargo = reader->ReadString(); // Читаем массу без груза
+
+            // Добавление строки в DataGridView
+            dataGridView1->Rows->Add(carNumber, brand, ownerName, size, weightWithoutCargo, cargoWeight);
+        }
+    }
+    catch (Exception^ ex) {
+		outputTextBox->Clear();
+        MessageBox::Show("Ошибка чтения файла: " + ex->Message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+    }
+    finally {
+        // Закрываем потоки
+        reader->Close();
+        fs->Close();
+    }
+}
+private: System::Void but_exit_MouseEnter(System::Object^ sender, System::EventArgs^ e) {
+	this->but_exit->BackColor = System::Drawing::Color::Red;
+}
+private: System::Void but_exit_MouseLeave(System::Object^ sender, System::EventArgs^ e) {
+	this->but_exit->BackColor = System::Drawing::Color::Black;
 }
 };
 }

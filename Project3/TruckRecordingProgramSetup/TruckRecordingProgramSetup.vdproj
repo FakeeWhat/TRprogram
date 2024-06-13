@@ -15,7 +15,7 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_22F9AF5C81474C40B5940EF48386D904"
+        "MsmKey" = "8:_0CC7EF982F044C90A263C2ED56B9AEBF"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -70,13 +70,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_8D8E28DB0D9632530CA15902F2F2E9B1"
+        "OwnerKey" = "8:_72E4883BBAB64EF3B8F1D8E55DCF1419"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_72E4883BBAB64EF3B8F1D8E55DCF1419"
+        "OwnerKey" = "8:_8D8E28DB0D9632530CA15902F2F2E9B1"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -129,6 +129,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -158,10 +166,10 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_22F9AF5C81474C40B5940EF48386D904"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0CC7EF982F044C90A263C2ED56B9AEBF"
             {
-            "SourcePath" = "8:..\\..\\Новая папка\\records.dat"
-            "TargetName" = "8:records.dat"
+            "SourcePath" = "8:..\\records.bin"
+            "TargetName" = "8:records.bin"
             "Tag" = "8:"
             "Folder" = "8:_C1B7564D8ED347D18F3BBA5ADF20D9A9"
             "Condition" = "8:"
